@@ -40,7 +40,7 @@ var query = function(){
 		    	var price = arr_sub[2];
 				price = price.replace("đ", "");
 			    price = price.split('.').join('');
-			    if(price<=4000000)
+			    if(price<=3500000)
 			    {
 			    	arr_sub.push(arr_links[i]);
 			    	arr.push(arr_sub);
