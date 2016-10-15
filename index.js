@@ -65,6 +65,13 @@ var query = function(){
 			});
 
 		}
+
+		//After post, clear array
+		arr = [];
+		arr_sub = [];
+		arr_temp = [];
+		arr_links = [];
+
 	  }
 
 	  else console.log('Error');
