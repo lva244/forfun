@@ -32,7 +32,10 @@ var query = function(){
 		    arr_sub[1] = arr_temp[2];
 		    for(var j=0;j<arr_sub.length;j++)
 		    {
-		    	arr_sub[j] = arr_sub[j].trim();
+		    	if(arr_sub[j])
+		    	{
+		    		arr_sub[j] = arr_sub[j].trim();
+		    	}
 		    }
 		    
 		    if((arr_sub[4].includes("1 giờ") &&  !arr_sub[4].includes("phút")) || (!arr_sub[4].includes("giờ") &&  arr_sub[4].includes("phút")))
