@@ -38,17 +38,20 @@ var query = function(){
 		    	}
 		    }
 		    
-		    if((arr_sub[4].includes("1 giờ") &&  !arr_sub[4].includes("phút")) || (!arr_sub[4].includes("giờ") &&  arr_sub[4].includes("phút")))
+		    if(arr_sub[4])
 		    {
-		    	var price = arr_sub[2];
-				price = price.replace("đ", "");
-			    price = price.split('.').join('');
-			    if(price<=3500000)
+			    if((arr_sub[4].includes("1 giờ") &&  !arr_sub[4].includes("phút")) || (!arr_sub[4].includes("giờ") &&  arr_sub[4].includes("phút")))
 			    {
-			    	arr_sub.push(arr_links[i]);
-			    	arr.push(arr_sub);
-				}
-		    }
+			    	var price = arr_sub[2];
+					price = price.replace("đ", "");
+				    price = price.split('.').join('');
+				    if(price<=3500000)
+				    {
+				    	arr_sub.push(arr_links[i]);
+				    	arr.push(arr_sub);
+					}
+			    }
+			}
 
 		}
 
