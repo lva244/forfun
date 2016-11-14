@@ -6,7 +6,7 @@ from lxml.html.soupparser import fromstring
 
 url = "http://sodt.mobi/"
 
-header_test = ["097", "098"]
+header_test = ["097", "098", "0168", "0164", "0165", "0166", "0167", "0169", "091", "094", "0123", "0125", "0127", "0129", "090", "093", "0121", "0122", "0124", "0126", "0128", "092", "0188"]
 current_stop = 0
 current_start = 0
 current_header_index = 0
@@ -18,7 +18,6 @@ def fetch(url):
 	print("fetching", url)
 	return urllib2.urlopen(url).read()
 
-
 fo = open("test.txt", "wb")
 
 while current_header_index < len(header_test):
@@ -26,7 +25,7 @@ while current_header_index < len(header_test):
 	while current_stop < max_stop:
 		urls = set()
 
-		current_stop = current_stop + 2000
+		current_stop = current_stop + 5
 
 		if current_stop > max_stop:
 			current_stop = current_stop - abs(max_stop - current_stop)
@@ -37,7 +36,7 @@ while current_header_index < len(header_test):
 
 		current_start = current_stop
 
-		pool = eventlet.GreenPool()
+		pool = eventlet.GreenPool(50)
 		for body in pool.imap(fetch, urls):
 		    root = fromstring(body)
 		    tree = etree.ElementTree(root)
@@ -49,9 +48,11 @@ while current_header_index < len(header_test):
 		    		total = name[0] + "|" + location[0] + "|" + mobile_number[0].text	
 		    	else:
 		    		total = name[0] + "|" + "None" + "|" + mobile_number[0].text
-		    	fo.write((total+"\r\n").encode(encoding='UTF-8'))
-		    	print((total+"\r\n").encode(encoding='UTF-8'))
 
+		    	fo.write((total+"\r\n").encode(encoding='UTF-8'))
+
+		    	print((total+"\r\n").encode(encoding='UTF-8'))
+		pool.waitall()
 	print("Finished " + header_test[current_header_index])
 
 	current_stop = 0
@@ -59,5 +60,5 @@ while current_header_index < len(header_test):
 	
 	current_header_index = current_header_index + 1	    	
 
-
 fo.close()
+
