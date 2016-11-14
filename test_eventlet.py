@@ -25,7 +25,7 @@ while current_header_index < len(header_test):
 	while current_stop < max_stop:
 		urls = set()
 
-		current_stop = current_stop + 5
+		current_stop = current_stop + 100
 
 		if current_stop > max_stop:
 			current_stop = current_stop - abs(max_stop - current_stop)
@@ -38,20 +38,23 @@ while current_header_index < len(header_test):
 
 		pool = eventlet.GreenPool(50)
 		for body in pool.imap(fetch, urls):
-		    root = fromstring(body)
-		    tree = etree.ElementTree(root)
-		    name = tree.xpath("/html/body/main/div/div/div[1]/div[2]/div/h5/text()")
-		    location = tree.xpath("/html/body/main/div/div/div[1]/div[2]/div/h6/text()")
-		    mobile_number = tree.xpath("/html/body/main/div/div/div[1]/div[1]/div[1]/h1")
-		    if len(name) > 0 and len(mobile_number) >0:
-		    	if len(location) > 0:
-		    		total = name[0] + "|" + location[0] + "|" + mobile_number[0].text	
-		    	else:
-		    		total = name[0] + "|" + "None" + "|" + mobile_number[0].text
+			try: 
+			    root = fromstring(body)
+			    tree = etree.ElementTree(root)
+			    name = tree.xpath("/html/body/main/div/div/div[1]/div[2]/div/h5/text()")
+			    location = tree.xpath("/html/body/main/div/div/div[1]/div[2]/div/h6/text()")
+			    mobile_number = tree.xpath("/html/body/main/div/div/div[1]/div[1]/div[1]/h1")
+			    if len(name) > 0 and len(mobile_number) >0:
+			    	if len(location) > 0:
+			    		total = name[0] + "|" + location[0] + "|" + mobile_number[0].text	
+			    	else:
+			    		total = name[0] + "|" + "None" + "|" + mobile_number[0].text
 
-		    	fo.write((total+"\r\n").encode(encoding='UTF-8'))
+			    	fo.write((total+"\r\n").encode(encoding='UTF-8'))
 
-		    	print((total+"\r\n").encode(encoding='UTF-8'))
+			    	print((total+"\r\n").encode(encoding='UTF-8'))
+			except Exception:
+				print("Error")
 		pool.waitall()
 	print("Finished " + header_test[current_header_index])
 
