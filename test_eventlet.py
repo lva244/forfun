@@ -11,8 +11,8 @@ current_stop = 0
 current_start = 0
 current_header_index = 0
 
-#max_stop = 282475250
-max_stop = 21
+max_stop = 282475250
+#max_stop = 21
 
 def fetch(url):
 	print("fetching", url)
@@ -26,7 +26,7 @@ while current_header_index < len(header_test):
 	while current_stop < max_stop:
 		urls = set()
 
-		current_stop = current_stop + 10
+		current_stop = current_stop + 2000
 
 		if current_stop > max_stop:
 			current_stop = current_stop - abs(max_stop - current_stop)
