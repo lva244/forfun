@@ -33,7 +33,7 @@ while current_header_index < len(header_test):
 
 
 		for i in range(current_start, current_stop):
-			urls.add(url+header_test[current_header_index]+"-"+str(i).zfill(7))
+			urls.add(url+header_test[current_header_index]+"-"+str(i).zfill(7)+".html")
 
 		current_start = current_stop
 
