@@ -16,7 +16,7 @@ max_stop = 282475250
 
 def fetch(url):
 	print("fetching", url)
-	return urllib2.urlopen(url).read()
+	return urllib2.urlopen(url, timeout=60).read()
 
 fo = open("test.txt", "wb")
 
